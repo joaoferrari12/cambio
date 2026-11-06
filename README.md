@@ -23,7 +23,7 @@ he would like to admit.
   credential.
 - **Pure logic, separately tested**: day-over-day change, conversion in both
   directions, range start dates, decimals that adapt to the size of the rate
-  (yen and dong get six), min/max of a series. 9 unit tests, no DOM.
+  (yen and dong get six), min/max of a series. 11 unit tests, no DOM, including one that pins the API quirk: `recent=N` answers newest first, `start_date` oldest first.
 - **Component tests with a fake API**: 4 tests render the whole app against a
   stubbed `fetch`, exercise the converter, the swap button and the currency
   picker, and check accessible names rather than CSS classes.

@@ -44,7 +44,7 @@ interface ValetResponse {
   observations: Array<{ d: string } & Record<string, { v: string } | undefined>>
 }
 
-/** Raw observations for several currencies, oldest first, as the API returns them. */
+/** Observations for several currencies, oldest first whatever the query parameter. */
 export async function fetchObservations(
   codes: string[],
   params: { recent?: number; start_date?: string },
@@ -67,5 +67,7 @@ export async function fetchObservations(
       if (cell?.v) out[code].push({ date: obs.d, rate: Number(cell.v) })
     }
   }
+  // `recent=N` answers newest first, `start_date` oldest first: normalise to oldest first.
+  for (const code of codes) out[code].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))
   return out
 }
